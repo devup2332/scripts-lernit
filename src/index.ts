@@ -3,7 +3,7 @@ import { generateExcelReportCoursesPerClient } from "./reportsExcel/getCoursesPe
 import { syncCoursesByExcel } from "./scripts/syncCoursesByExcel";
 
 // Scripts
-// syncCoursesByExcel(clients.EXECON);
+syncCoursesByExcel(clients.EXECON.id);
 
 // Reports Excel
-generateExcelReportCoursesPerClient(clients.EXECON.id);
+// generateExcelReportCoursesPerClient(clients.EXECON.id);

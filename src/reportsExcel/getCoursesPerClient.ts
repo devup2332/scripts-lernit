@@ -35,8 +35,8 @@ export const generateExcelReportCoursesPerClient = async (clientId: string) => {
 
   const sheet1 = xlsx.utils.json_to_sheet(clientCourses);
   const sheet2 = xlsx.utils.json_to_sheet(MPCourses);
-  const sheetName1 = `Cursos ${clientId}`;
-  const sheetName2 = `Cursos mp ${clientId}`;
+  const sheetName1 = `Cursos del Cliente`;
+  const sheetName2 = `Cursos Marketplace`;
   const filename = `Cursos ${clientId}.xlsx`;
   xlsx.utils.book_append_sheet(wb, sheet1, sheetName1);
   xlsx.utils.book_append_sheet(wb, sheet2, sheetName2);

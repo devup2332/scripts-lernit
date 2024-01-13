@@ -8,12 +8,12 @@ export const getLevelsPerInstance = async (instance: string) => {
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${environments.TOKENVOL_DEMORT}`,
+          Authorization: `Bearer ${environments.TOKEN_VOLDEMORT}`,
         },
       }
     );
-    return (await response.json()) as ILevelVoldemort[];
+    return (await response.json()).data as ILevelVoldemort[];
   } catch (err) {
-    return;
+    return [];
   }
 };

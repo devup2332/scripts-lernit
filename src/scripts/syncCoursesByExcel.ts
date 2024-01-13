@@ -7,6 +7,7 @@ import { GET_INFO_COURSES_BY_IDS } from "../graphql/queries/courses/gitInfoCours
 import type { ICourse } from "../interfaces/course";
 import { getLevelsPerInstance } from "../utils/getLevelsPerInstance";
 import type { ILevelVoldemort } from "../interfaces/levelVoldemort";
+import { sleep } from "bun";
 
 export const syncCoursesByExcel = async (clientId: string) => {
   console.log(`===> Reading Excel ...`);
@@ -46,24 +47,53 @@ export const syncCoursesByExcel = async (clientId: string) => {
   // Updating MPCourses
 
   console.log(`===> Updating MP Courses ...`);
-  const levels = await getLevelsPerInstance(clientId);
+  const levelsInstance = (await getLevelsPerInstance(clientId)) || [];
 
   for (const MPCourse of MPCourses) {
     const cExcel = coursesExcel.filter(
       (cExcel) => cExcel["Curso ID"] === MPCourse.id
     );
     let competencies = [];
-    if (cExcel.length === 1) competencies.push(cExcel[0].Competencias);
+    if (cExcel.length === 1)
+      competencies.push({
+        competencie: cExcel[0].Competencias,
+        level: cExcel[0].Nivel,
+      });
     if (cExcel.length > 1) {
-      cExcel.forEach((c) => competencies.push(c.Competencias));
+      cExcel.forEach((c) =>
+        competencies.push({
+          competencie: c.Competencias,
+          level: c.Nivel,
+        })
+      );
     }
+    const compWithLevels = [];
+    // console.log({ competencies });
 
     for (const comp of competencies) {
-      const fC = competenciesLXP.find(
-        (c) =>
-          c.name.trim().toLocaleLowerCase() === comp.trim().toLocaleLowerCase()
+      const fC = competenciesLXP.find((c) => c.name === comp.competencie);
+      const lvl = levelsInstance.find((lvl) =>
+        lvl.name
+          .trim()
+          .toLowerCase()
+          .includes(comp.level.trim().toLocaleLowerCase())
       );
-      if (!fC) continue;
+      if (!fC || !lvl) {
+        console.log(`===> NOT FOUND ${cExcel}`, { comp });
+        continue;
+      }
+      compWithLevels.push({
+        levels: [
+          {
+            id: lvl.id,
+            name: lvl.name,
+          },
+        ],
+        competencieId: fC.competencieId,
+        competencieName: fC.name,
+      });
+      // console.log({ compWithLevels });
     }
+    // await sleep(10000);
   }
 };
