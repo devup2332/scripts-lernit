@@ -6,6 +6,7 @@ export interface ICourse {
   stage: number;
   type: string;
   isDeleted: boolean;
+  origin: string
   deletedAt: string;
 }
 
