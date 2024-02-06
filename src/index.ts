@@ -7,5 +7,5 @@ import { syncCoursesByExcel } from "./scripts/syncCoursesByExcel";
 // syncCoursesByExcel(clients.EXECON.id);
 
 // Reports Excel
-// generateExcelReportCoursesPerClient(clients.EXECON.id);
-getReportTecmilenioCourses()
+generateExcelReportCoursesPerClient(clients.MAZDA.id);
+// getReportTecmilenioCourses()

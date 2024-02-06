@@ -11,5 +11,16 @@ export const COURSE_INFO_FRAGMENT = gql`
     isDeleted: is_deleted
     deletedAt: deleted_at
     origin
+    topic {
+      topicId: topic_fb
+      name
+    }
+  }
+`;
+
+export const USERS_COURSE_INFO_FRAGMENT = gql`
+  fragment usersCourseInfo on user_course_cl {
+    score
+    progress
   }
 `;

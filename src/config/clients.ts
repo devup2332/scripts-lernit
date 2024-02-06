@@ -5,6 +5,10 @@ export const clients = {
   },
   TECMILENIO: {
     id: "tecmilenio",
-    name: "Tecmilenio"
-  }
+    name: "Tecmilenio",
+  },
+  MAZDA: {
+    id: "mazda",
+    name: "Mazda",
+  },
 };

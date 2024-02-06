@@ -6,10 +6,21 @@ export interface ICourse {
   stage: number;
   type: string;
   isDeleted: boolean;
-  origin: string
+  origin: string;
   deletedAt: string;
+  topic: {
+    name: string;
+    topicId: string;
+  };
+  usersCourse: UserCourse[];
+}
+
+export interface UserCourse {
+  score: number;
+  progress: number;
 }
 
 export interface ICourseMarketplaceDataTP {
   course: ICourse;
+  topicId: string;
 }
